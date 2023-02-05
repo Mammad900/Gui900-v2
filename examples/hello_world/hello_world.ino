@@ -21,7 +21,6 @@ Label::Style *labelStyle = new Label::Style(
 );
 
 void setup() {
-  // put your setup code here, to run once:
   mainPage.addChild(new Label(
     "Hello world", // Label text
     labelStyle, // Label style
@@ -32,6 +31,5 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  // No loop code is needed because the app does nothing after starting
 }
