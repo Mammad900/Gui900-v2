@@ -110,7 +110,6 @@ bool Gui900::Elements::Slider::containsPoint(int x, int y)
 
 void Gui900::Elements::Slider::onPointerDown(int x, int y)
 {
-    Serial.println("Down");
     if(containsPoint(x, y)) {
         isDown = true;
     }
@@ -118,7 +117,6 @@ void Gui900::Elements::Slider::onPointerDown(int x, int y)
 
 void Gui900::Elements::Slider::onPointerUp(int x, int y)
 {
-    Serial.println("Up");
     isDown = false;
 }
 
