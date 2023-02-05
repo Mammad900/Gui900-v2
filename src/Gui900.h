@@ -76,11 +76,11 @@ namespace Gui900
         void onPointerMove(int x, int y, bool isDown);
     };
 
-    /// @brief An interface for interacting with input devices (such as touch and mouse). This class is abstract.
+    /// @brief An interface for interacting with input devices (such as touch and mouse).
     class Input
     {
     public:
-        virtual void update() = 0;
+        virtual void update() { };
         App *app;
     };
 }
