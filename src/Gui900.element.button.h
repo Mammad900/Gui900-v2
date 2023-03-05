@@ -17,6 +17,13 @@ namespace Gui900
             /// @brief Represents the style of the button
             struct Style
             {
+                static const uint16_t defaultBackColor = 0x630C;
+                static const uint16_t defaultForeColor = 0xFFFF;
+                static const uint16_t defaultBorderColor = defaultBackColor;
+                static const uint16_t defaultBorderColorHover = 0xA534;
+                static const uint16_t defaultBorderColorActive = 0xFFFF;
+                static const int defaultBorderRadius = 5;
+
                 /// @brief The background color
                 uint16_t backColor;
                 /// @brief The text color
@@ -41,10 +48,10 @@ namespace Gui900
                 /// @param lineHeight The height of the text. Increase if the text is too high, decrease if the text is too low. Set to 0 to automatically infer. Ignored for the default (NULL) font.
                 /// @param fontSize Font size multiplier. Causes text to become blocky.
                 Style(
-                    uint16_t backColor = 0x630C,
-                    uint16_t foreColor = 0xFFFF,
-                    uint16_t borderColor = 0x630C,
-                    int borderRadius = 5,
+                    uint16_t backColor = defaultBackColor,
+                    uint16_t foreColor = defaultForeColor,
+                    uint16_t borderColor = defaultBorderColor,
+                    int borderRadius = defaultBorderRadius,
                     const GFXfont *font = NULL,
                     int lineHeight = 0,
                     int fontSize = 2)
@@ -56,6 +63,21 @@ namespace Gui900
                       lineHeight(lineHeight),
                       fontSize(fontSize)
                 {
+                }
+
+                static Style *fromFont(
+                    const GFXfont *font,
+                    int lineHeight = 0,
+                    int fontSize = 1)
+                {
+                    return new Style(
+                        defaultBackColor,
+                        defaultForeColor,
+                        defaultBorderColor,
+                        defaultBorderRadius,
+                        font,
+                        lineHeight,
+                        fontSize);
                 }
             };
 
@@ -70,6 +92,46 @@ namespace Gui900
                 /// @param active The style to use when the pointer is over the button and is pressed
                 Styles(Style *normal, Style *hover = NULL, Style *active = NULL)
                     : normal(normal), hover(hover), active(active) {}
+
+                /// @brief Creates a Styles object from the default button style.
+                Styles()
+                {
+                    normal = new Style();
+                    hover = new Style(Style::defaultBackColor, Style::defaultForeColor, Style::defaultBorderColorHover);
+                    active = new Style(Style::defaultBackColor, Style::defaultForeColor, Style::defaultBorderColorActive);
+                }
+
+                static Styles *fromFont(
+                    const GFXfont *font,
+                    int lineHeight = 0,
+                    int fontSize = 1)
+                {
+                    return new Styles(
+                        new Style(
+                            Style::defaultBackColor,
+                            Style::defaultForeColor,
+                            Style::defaultBorderColor,
+                            Style::defaultBorderRadius,
+                            font,
+                            lineHeight,
+                            fontSize),
+                        new Style(
+                            Style::defaultBackColor,
+                            Style::defaultForeColor,
+                            Style::defaultBorderColorHover,
+                            Style::defaultBorderRadius,
+                            font,
+                            lineHeight,
+                            fontSize),
+                        new Style(
+                            Style::defaultBackColor,
+                            Style::defaultForeColor,
+                            Style::defaultBorderColorActive,
+                            Style::defaultBorderRadius,
+                            font,
+                            lineHeight,
+                            fontSize), );
+                }
             };
 
             /// @brief The way a button should be clicked
