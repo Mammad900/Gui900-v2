@@ -82,7 +82,7 @@ namespace Gui900
             };
 
             /// @brief The text to display on the button
-            char *text;
+            const char *text;
             /// @brief The style currently in use
             Style *style;
             /// @brief The styles to use for the button
@@ -101,7 +101,7 @@ namespace Gui900
             /// @param styles Button styles
             /// @param onClick The function to call when the button is pressed.
             /// @param clickBehavior The way the button should be clicked to trigger onClick.
-            Button(int x, int y, int w, int h, char *text, Styles *styles, void (*onClick)(Button *), ClickBehavior clickBehavior = ClickBehavior::up);
+            Button(int x, int y, int w, int h, const char *text, Styles *styles, void (*onClick)(Button *), ClickBehavior clickBehavior = ClickBehavior::up);
 
             void onPointerDown(int x, int y);
             void onPointerUp(int x, int y);

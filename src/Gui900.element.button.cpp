@@ -4,7 +4,7 @@
 #include "Gui900.util.h"
 #include "Gui900.element.button.h"
 
-Gui900::Elements::Button::Button(int x, int y, int w, int h, char *text, Styles *styles, void (*onClick)(Button *), ClickBehavior clickBehavior)
+Gui900::Elements::Button::Button(int x, int y, int w, int h, const char *text, Styles *styles, void (*onClick)(Button *), ClickBehavior clickBehavior)
     : text(text), styles(styles), onClick(onClick), clickBehavior(clickBehavior)
 {
     this->x = x;
