@@ -169,6 +169,7 @@ namespace Gui900
             void onPointerUp(int x, int y);
 
             void draw(Adafruit_GFX &gfx);
+            void draw(Adafruit_GFX &gfx, bool force);
             void undraw(Adafruit_GFX &gfx);
 
             /// @brief Changes the style to a new one.

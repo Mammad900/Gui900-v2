@@ -46,11 +46,16 @@ void Gui900::Elements::Button::onPointerUp(int x, int y)
 
 void Gui900::Elements::Button::draw(Adafruit_GFX &gfx)
 {
+    draw(gfx, false);
+}
+
+void Gui900::Elements::Button::draw(Adafruit_GFX &gfx, bool force)
+{
     int absX = getAbsoluteX();
     int absY = getAbsoluteY();
-    if (style->backColor != parent->backColor)
+    if (style->backColor != parent->backColor || force)
         gfx.fillRoundRect(absX, absY, width, height, style->borderRadius, style->backColor);
-    if (style->backColor != style->borderColor)
+    if (style->backColor != style->borderColor || force)
         gfx.drawRoundRect(absX, absY, width, height, style->borderRadius, style->borderColor);
     if (strlen(text) > 0)
     {
@@ -88,7 +93,7 @@ void Gui900::Elements::Button::setStyle(Style *newStyle)
                     gfx.fillRect(absX, absY + height - r, r, r, parent->backColor);             // Bottom left
                 }
                 style = newStyle;
-                draw(gfx);
+                draw(gfx, true);
                 return;
             }
             else // Transparent background, only redraw border.
@@ -102,7 +107,7 @@ void Gui900::Elements::Button::setStyle(Style *newStyle)
             if (newStyle->backColor != style->backColor)
             {
                 style = newStyle;
-                draw(gfx); // Redraw everything
+                draw(gfx, true); // Redraw everything
                 return;
             }
             else if (newStyle->borderColor != style->borderColor)
