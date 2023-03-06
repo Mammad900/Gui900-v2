@@ -43,7 +43,7 @@ namespace Gui900
             /// @brief The style used for the label
             Style *style;
             /// @brief Label text
-            const char *text;
+            char *text;
             /// @brief Text alignment relative to the parent
             TextAlign align;
             /// @brief The relative horizontal position of the label after applying the alignment
@@ -66,6 +66,8 @@ namespace Gui900
 
             /// @brief Changes the text of the label.
             void setText(const char *newText);
+
+            ~Label();
 
         private:
             void calculateSize();

@@ -4,8 +4,9 @@
 #include "Gui900.element.label.h"
 
 Gui900::Elements::Label::Label(char *text, Style *style, int y, TextAlign align, int relativeX)
-    : text(text), style(style), align(align), relativeX(relativeX)
+    : style(style), align(align), relativeX(relativeX)
 {
+    this->text = strdup(text);
     this->y = y;
     width = -1;
 }
@@ -63,15 +64,22 @@ void Gui900::Elements::Label::setText(const char *newText)
     {
         Adafruit_GFX &gfx = app->display.gfx();
         undraw(gfx);
-        text = newText;
+        free(text);
+        text = strdup(newText);
         calculateSize();
         draw(gfx);
     }
     else
     {
-        text = newText;
+        free(text);
+        text = strdup(newText);
         calculateSize();
     }
+}
+
+Gui900::Elements::Label::~Label()
+{
+    free(text);
 }
 
 void Gui900::Elements::Label::calculateSize()
