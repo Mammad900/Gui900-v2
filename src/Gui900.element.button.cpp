@@ -117,7 +117,7 @@ void Gui900::Elements::Button::setStyle(Style *newStyle)
         }
         if (newStyle->font != style->font ||
             newStyle->lineHeight != style->lineHeight ||
-            newStyle->fontSize != style->lineHeight)
+            newStyle->fontSize != style->fontSize)
         {
             drawText(gfx, true); // Delete previous text
             style = newStyle;
