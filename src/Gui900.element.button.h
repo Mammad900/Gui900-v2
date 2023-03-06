@@ -130,7 +130,7 @@ namespace Gui900
                             Style::defaultBorderRadius,
                             font,
                             lineHeight,
-                            fontSize), );
+                            fontSize) );
                 }
             };
 
