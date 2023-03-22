@@ -3,10 +3,13 @@
 #include "Gui900.util.h"
 #include "Gui900.element.label.h"
 
-Gui900::Elements::Label::Label(char *text, Style *style, int y, TextAlign align, int relativeX)
-    : style(style), align(align), relativeX(relativeX)
+Gui900::Elements::Label::Label(char *text, Style *style, int y, TextAlign align, int relativeX, bool copyText)
+    : style(style), align(align), relativeX(relativeX), copyText(copyText)
 {
-    this->text = strdup(text);
+    if (copyText)
+        this->text = strdup(text);
+    else
+        this->text = text;
     this->y = y;
     width = -1;
 }
@@ -58,28 +61,27 @@ void Gui900::Elements::Label::setStyle(Style *newStyle)
     }
 }
 
-void Gui900::Elements::Label::setText(const char *newText)
+void Gui900::Elements::Label::setText(char *newText)
 {
     if (isActive)
     {
         Adafruit_GFX &gfx = app->display.gfx();
         undraw(gfx);
-        free(text);
-        text = strdup(newText);
+        assignText(newText);
         calculateSize();
         draw(gfx);
     }
     else
     {
-        free(text);
-        text = strdup(newText);
+        assignText(newText);
         calculateSize();
     }
 }
 
 Gui900::Elements::Label::~Label()
 {
-    free(text);
+    if (copyText)
+        free(text);
 }
 
 void Gui900::Elements::Label::calculateSize()
@@ -100,4 +102,15 @@ void Gui900::Elements::Label::calculateSize()
         x = parent->getInnerWidth() - width;
     x += relativeX;
     this->x = x;
+}
+
+void Gui900::Elements::Label::assignText(char *newText)
+{
+    if (copyText)
+    {
+        free(text);
+        text = strdup(newText);
+    }
+    else
+        text = newText;
 }

@@ -48,6 +48,8 @@ namespace Gui900
             TextAlign align;
             /// @brief The relative horizontal position of the label after applying the alignment
             int relativeX;
+            /// @brief Whether the label text should be copied in memory.
+            bool copyText;
 
             /// @brief Creates a new label.
             /// @param text Label text
@@ -55,7 +57,7 @@ namespace Gui900
             /// @param y The vertical position of the label relative to the parent.
             /// @param align Text alignment relative to the parent
             /// @param relativeX Relative horizontal position after applying the alignment
-            Label(char *text, Style *style, int y, TextAlign align = TextAlign::left, int relativeX = 0);
+            Label(char *text, Style *style, int y, TextAlign align = TextAlign::left, int relativeX = 0, bool copyText = false);
 
             void draw(Adafruit_GFX &gfx);
             void undraw(Adafruit_GFX &gfx);
@@ -65,12 +67,13 @@ namespace Gui900
             void setStyle(Style *newStyle);
 
             /// @brief Changes the text of the label.
-            void setText(const char *newText);
+            void setText(char *newText);
 
             ~Label();
 
         private:
             void calculateSize();
+            void assignText(char *newText);
         };
     }
 }
