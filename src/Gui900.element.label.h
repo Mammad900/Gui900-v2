@@ -1,7 +1,7 @@
 #ifndef __GUI900_ELEMENT_LABEL_H__
 #define __GUI900_ELEMENT_LABEL_H__
 
-#include <arduino.h>
+#include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include "Gui900.h"
 #include "Gui900.element.h"
