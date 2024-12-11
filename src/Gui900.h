@@ -32,6 +32,37 @@ namespace Gui900
 
         /// @brief Returns the Adafruit_GFX instance that can be used to draw to the screen
         virtual Adafruit_GFX &gfx() = 0;
+
+        int pw_x = -1, pw_y = -1, pw_w = 0, pw_h = 0, pixelsWritten = 0;
+        virtual void startPixelWrite(int x, int y, int w, int h) {
+            pw_x = x;
+            pw_y = y;
+            pw_w = w;
+            pw_h = h;
+        }
+        virtual void writePixels(uint16_t *block, int16_t n) {
+            if(pw_x == -1)
+                return;
+            Adafruit_GFX &g = gfx();
+            for (size_t i = 0; i < n; i++)
+            {
+                int j = i + pixelsWritten;
+                g.writePixel((j % pw_w) + pw_x, (j / pw_w) + pw_y, block[i]);
+            }
+            pixelsWritten += n;
+        }
+        virtual void writePixels(uint8_t *block, int16_t n) {
+            writePixels((uint16_t *)block, n);
+        }
+        virtual void writePixels(const uint8_t *block, int16_t n){
+            writePixels((uint16_t *)block, n);
+        }
+        virtual void endPixelWrite() {
+            pw_x = -1;
+            pw_y = -1;
+            pw_w = 0;
+            pw_h = 0;
+        }
     };
 
     class Input;
