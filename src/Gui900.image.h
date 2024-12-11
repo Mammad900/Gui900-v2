@@ -26,11 +26,11 @@ namespace Gui900
             {
                 return read8() | read8() << 8;
             }
-            virtual uint8_t *readBulk8(int n)
+            virtual uint8_t *readAll()
             {
                 return NULL;
             }
-            virtual uint16_t *readBulk16(int n)
+            virtual const uint8_t *readAllProgmem()
             {
                 return NULL;
             }

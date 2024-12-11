@@ -55,7 +55,15 @@ namespace Gui900
             writePixels((uint16_t *)block, n);
         }
         virtual void writePixels(const uint8_t *block, int16_t n){
-            writePixels((uint16_t *)block, n);
+            if(pw_x == -1)
+                return;
+            Adafruit_GFX &g = gfx();
+            for (size_t i = 0; i < n; i++)
+            {
+                int j = i + pixelsWritten;
+                g.writePixel((j % pw_w) + pw_x, (j / pw_w) + pw_y, pgm_read_word(&block[i]));
+            }
+            pixelsWritten += n;
         }
         virtual void endPixelWrite() {
             pw_x = -1;

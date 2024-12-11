@@ -25,8 +25,17 @@ namespace Gui900
                 {
                     source.reset();
                     display.startPixelWrite(x, y, w, h);
-                    uint16_t *data = source.readBulk16(w * h);
-                    if (data == NULL)
+                    uint8_t *data = source.readAll();
+                    const uint8_t *dataP = source.readAllProgmem();
+                    if (data != NULL)
+                    {
+                        display.writePixels(data, w * h);
+                    }
+                    else if (dataP != NULL)
+                    {
+                        display.writePixels(dataP, w * h);
+                    }
+                    else
                     {
                         uint16_t color;
                         for (size_t i = 0; i < w * h; i++)
@@ -34,9 +43,6 @@ namespace Gui900
                             color = source.read16();
                             display.writePixels(&color, 1);
                         }
-                    }
-                    else {
-                        display.writePixels(data, w * h);
                     }
                     display.endPixelWrite();
                 }

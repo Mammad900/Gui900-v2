@@ -22,11 +22,14 @@ namespace Gui900 {
                     uint8_t read8() {
                         return pgm_read_byte(&buffer[pos++]);
                     }
-                    // uint16_t read16() {
-                    //     uint16_t res = pgm_read_word(&buffer[pos]);
-                    //     pos += 2;
-                    //     return res;
-                    // }
+                    uint16_t read16() {
+                        uint16_t res = pgm_read_word(&buffer[pos]);
+                        pos += 2;
+                        return res;
+                    }
+                    const uint8_t *readAllProgmem() {
+                        return buffer;
+                    }
             };
         }
     }

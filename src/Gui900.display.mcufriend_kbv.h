@@ -19,6 +19,29 @@ namespace Gui900
         void init(Gui900::Orientation orientation);
         Adafruit_GFX &gfx();
 
+        void startPixelWrite(int x, int y, int w, int h)
+        {
+            display.setAddrWindow(x, y, x + w - 1, y + h - 1);
+        }
+        void writePixels(uint16_t *block, int16_t n)
+        {
+            display.pushColors(block, n, pixelsWritten == 0);
+            pixelsWritten += n;
+        }
+        void writePixels(const uint8_t *block, int16_t n)
+        {
+            display.pushColors((const uint8_t *)block, n, pixelsWritten == 0);
+            pixelsWritten += n;
+        }
+        virtual void endPixelWrite()
+        {
+            pw_x = -1;
+            pw_y = -1;
+            pw_w = 0;
+            pw_h = 0;
+            display.setAddrWindow(0, 0, display.width() - 1, display.height() - 1);
+        }
+
     private:
         MCUFRIEND_kbv display;
         int id;
