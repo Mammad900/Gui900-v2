@@ -21,6 +21,7 @@ namespace Gui900
 
         void startPixelWrite(int x, int y, int w, int h)
         {
+            pixelsWritten = 0;
             display.setAddrWindow(x, y, x + w - 1, y + h - 1);
         }
         void writePixels(uint16_t *block, int16_t n)
@@ -35,6 +36,7 @@ namespace Gui900
         }
         virtual void endPixelWrite()
         {
+            pixelsWritten = 0;
             pw_x = -1;
             pw_y = -1;
             pw_w = 0;

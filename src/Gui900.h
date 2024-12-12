@@ -39,6 +39,7 @@ namespace Gui900
             pw_y = y;
             pw_w = w;
             pw_h = h;
+            pixelsWritten = 0;
         }
         virtual void writePixels(uint16_t *block, int16_t n) {
             if(pw_x == -1)
@@ -70,6 +71,7 @@ namespace Gui900
             pw_y = -1;
             pw_w = 0;
             pw_h = 0;
+            pixelsWritten = 0;
         }
     };
 
