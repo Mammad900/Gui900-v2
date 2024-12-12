@@ -12,15 +12,23 @@ namespace Gui900
     {
         namespace Formats
         {
+            /// @brief A raw 16 bit color (RGB565) image.
             class Raw565 : public Format
             {
             public:
+                /// @brief Raw data source.
                 Source &source;
+
+                /// @brief Creates a new 16 bit image.
+                /// @param source Data source.
+                /// @param width Image width in pixels
+                /// @param height Image height in pixels
                 Raw565(Source &source, int width, int height) : source(source)
                 {
                     w = width;
                     h = height;
                 }
+                
                 void draw(Gui900::Display &display, int x, int y)
                 {
                     source.reset();

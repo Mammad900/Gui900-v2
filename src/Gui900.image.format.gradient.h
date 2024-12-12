@@ -12,21 +12,38 @@ namespace Gui900
     {
         namespace Formats
         {
+            /// @brief A linear gradient as an image. Only supports two colors, two directions and uses rgb interpolation.
             class Gradient : public Format
             {
             public:
+                /// @brief Represents the direction of a linear gradient.
                 enum Direction
                 {
+                    /// @brief Horizontal, from left to right.
                     left_right,
+                    /// @brief Vertical, from top to bottom.
                     top_bottom,
                 };
-                uint16_t start, end;
+
+                /// @brief Starting color.
+                uint16_t start;
+                /// @brief Ending color.
+                uint16_t end;
+                /// @brief Gradient direction.
                 Direction direction;
+
+                /// @brief Creates a new gradient image.
+                /// @param start Starting color
+                /// @param end Ending color
+                /// @param direction Gradient direction
+                /// @param width Image width in pixels
+                /// @param height Image height in pixels
                 Gradient(uint16_t start, uint16_t end, Direction direction, int width, int height) : start(start), end(end), direction(direction)
                 {
                     w = width;
                     h = height;
                 }
+
                 void draw(Gui900::Display &display, int x, int y)
                 {
                     Adafruit_GFX &gfx = display.gfx();
@@ -44,12 +61,13 @@ namespace Gui900
                             gfx.drawFastHLine(x, y + i, w, interpolateColor(start, end, i, h));
                         }
                         break;
-                    
+
                     default:
                         break;
                     }
                 }
 
+            private:
                 uint16_t interpolateColor(uint16_t colorA, uint16_t colorB, int pos, int max)
                 {
                     // Extract a

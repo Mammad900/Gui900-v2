@@ -12,15 +12,22 @@ namespace Gui900
     {
         namespace Formats
         {
+            /// @brief A solid color as an image.
             class SolidColor : public Format
             {
             public:
+                /// @brief The color of the image
                 uint16_t color;
+                /// @brief Creates a new solid color image.
+                /// @param color The color of the image
+                /// @param width Image width in pixels
+                /// @param height Image height in pixels
                 SolidColor(uint16_t color, int width, int height) : color(color)
                 {
                     w = width;
                     h = height;
                 }
+
                 void draw(Gui900::Display &display, int x, int y)
                 {
                     display.gfx().fillRect(x, y, w, h, color);
